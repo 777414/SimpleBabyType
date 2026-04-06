@@ -43,8 +43,10 @@ while running:
                 if pk == lvl[0]:
                     lvl.pop(0)
                     miss = False
+                    time_left += 2.0
                 else:
                     miss = True
+                    time_left -= 5.0
     
     if timer_work:
         time_left -= delta_time

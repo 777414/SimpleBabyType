@@ -18,6 +18,7 @@ RED = (255, 0, 0)
 font = pygame.font.SysFont("Times New Roman", 60)
 
 clock = pygame.time.Clock()
+lvl = utils.create_lvl(100)
 FPS = 60
 running = True
 while running:
@@ -26,10 +27,13 @@ while running:
             running = False
 
     screen.fill(WHITE)
-    text = font.render("A", True, WHITE)
-    pygame.draw.rect(screen, BLUE, (180,180, 50,60))
-    text_rect = text.get_rect(center=(180 + 25, 180 + 30))
-    screen.blit(text, text_rect)
+    x, y = 0, 0
+    for i, letter in enumerate(lvl):
+        text = font.render(letter.upper(), True, WHITE)
+        pygame.draw.rect(screen, BLUE, (x,y, 50,60))
+        text_rect = text.get_rect(center=(x + 25, y + 30))
+        screen.blit(text, text_rect)
+        x += 60
     
     pygame.display.flip()
     pygame.display.update()

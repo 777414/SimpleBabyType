@@ -3,10 +3,12 @@ import utils
 
 pygame.init()
 pygame.display.set_caption("Simple BabyType")
+icon = pygame.image.load("icon.png")
+pygame.display.set_icon(icon)
 
 # окно
 WIDTH = 400
-HEIGHT = 400
+HEIGHT = 200
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -18,10 +20,10 @@ RED = (255, 0, 0)
 font = pygame.font.SysFont("Times New Roman", 60)
 
 clock = pygame.time.Clock()
-lvl = utils.create_lvl(10)
+lvl = utils.create_lvl(100)
 miss = False
 last_time = pygame.time.get_ticks()
-time_left = 60.0
+time_left = 3.0
 timer_work = True
 FPS = 60
 running = True

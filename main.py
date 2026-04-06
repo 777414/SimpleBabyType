@@ -18,13 +18,22 @@ RED = (255, 0, 0)
 font = pygame.font.SysFont("Times New Roman", 60)
 
 clock = pygame.time.Clock()
-lvl = utils.create_lvl(100)
+lvl = utils.create_lvl(10)
 FPS = 60
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        
+        if event.type == pygame.KEYDOWN:
+            if len(lvl) == 0:
+                continue
+
+            pk = event.unicode.lower()
+            if pk.isalpha():
+                if pk == lvl[0]:
+                    lvl.pop(0)
 
     screen.fill(WHITE)
     x, y = 0, 0

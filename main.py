@@ -20,15 +20,22 @@ font = pygame.font.SysFont("Times New Roman", 60)
 clock = pygame.time.Clock()
 lvl = utils.create_lvl(10)
 miss = False
+last_time = pygame.time.get_ticks()
+time_left = 60.0
+timer_work = True
 FPS = 60
 running = True
 while running:
+    current_time = pygame.time.get_ticks()
+    delta_time = (current_time - last_time) / 1000.0
+    last_time = current_time
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         
         if event.type == pygame.KEYDOWN:
-            if len(lvl) == 0:
+            if len(lvl) == 0 or not timer_work:
                 continue
 
             pk = event.unicode.lower()
@@ -38,6 +45,15 @@ while running:
                     miss = False
                 else:
                     miss = True
+    
+    if timer_work:
+        time_left -= delta_time
+        if time_left <= 0:
+            time_left = 0
+            timer_work = False
+    
+    if len(lvl) == 0:
+        timer_work = False
 
     screen.fill(WHITE)
     x, y = 0, 0
@@ -48,6 +64,10 @@ while running:
         text_rect = text.get_rect(center=(x + 25, y + 30))
         screen.blit(text, text_rect)
         x += 60
+    
+    timer_text = font.render(f"{time_left:.1f}", True, BLUE)
+    timer_rect = timer_text.get_rect(centerx=WIDTH // 2, y = 100)
+    screen.blit(timer_text, timer_rect)
     
     pygame.display.flip()
     pygame.display.update()

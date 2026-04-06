@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --name "Simple BabyType" -i icon.png main.py
